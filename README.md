@@ -20,6 +20,10 @@ Build and run the app
 | test@email.com | test123456 |
 | test2@email.com | test2123456 |
 
+### Notify user
+Local notification has been used to notify user
+> To receive notification please keep the app opened
+
 ### Design Pattern 
 - Architecture pattern : MVC
 - Design pattern : singleton
