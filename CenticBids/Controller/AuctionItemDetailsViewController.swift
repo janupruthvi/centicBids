@@ -26,6 +26,7 @@ class AuctionItemDetailsViewController: UIViewController {
         super.viewDidLoad()
         self.setUpView()
         self.setUpDataForDisplay()
+        self.addDoneButtonOnKeyboard()
     }
     
     deinit {
@@ -104,6 +105,7 @@ class AuctionItemDetailsViewController: UIViewController {
                                                     height: 40))
         bidAmtField.borderStyle = .roundedRect
         bidAmtField.placeholder = "Enter Amt"
+        bidAmtField.keyboardType = .decimalPad
         
         let bidNowBtn = UIButton(frame: CGRect(x: bidAmtField.frame.maxX,
                                                y: yPosition,
@@ -241,10 +243,10 @@ extension AuctionItemDetailsViewController: UITextFieldDelegate {
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-            self.animateTextFieldMoving(up: true, moveValue: 185)
+            self.animateTextFieldMoving(up: true, moveValue: 242)
     }
     func textFieldDidEndEditing(_ textField: UITextField) {
-            self.animateTextFieldMoving(up: false, moveValue: 185)
+            self.animateTextFieldMoving(up: false, moveValue: 242)
     }
 
     func animateTextFieldMoving (up:Bool, moveValue :CGFloat){
@@ -255,6 +257,27 @@ extension AuctionItemDetailsViewController: UITextFieldDelegate {
         UIView.setAnimationDuration(movementDuration )
         self.view.frame = self.view.frame.offsetBy(dx: 0,  dy: movement)
         UIView.commitAnimations()
+    }
+    
+    func addDoneButtonOnKeyboard()
+    {
+        let doneToolbar: UIToolbar = UIToolbar(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
+        doneToolbar.barStyle = .default
+        
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let done: UIBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(self.doneButtonAction))
+        
+        let items = [flexSpace, done]
+        doneToolbar.items = items
+        doneToolbar.sizeToFit()
+        
+        self.bidAmtField?.inputAccessoryView = doneToolbar
+
+    }
+
+    @objc func doneButtonAction()
+    {
+        self.bidAmtField?.resignFirstResponder()
     }
     
 }
